@@ -1,26 +1,62 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define MONDAI 10
+#define SYUTSUDAI 10
 
 int mondai(int);
+void torf(int);
+int daburandom(int);
+
+int tmp[MONDAI];
+int count;
 
 int main(void){
-    int i, correct, ans;
+    int i;
 
-    for(i = 1;i <= 10;i++){
-        correct = mondai(i);
-
-        scanf("%d", &ans);
-
-        if(ans == correct){
-            printf("正解\n");
-        }
-        else{
-            printf("不正解\n");
-        }
+    for(i = 1;i <= SYUTSUDAI;i++){
+        mondai(daburandom(SYUTSUDAI));
     }
     
     return 0;
 }
+
+void torf(int correct){
+    int ans;
+
+    scanf("%d", &ans);
+
+    if(ans == correct){
+        printf("正解\n");
+    }
+    else{
+        printf("不正解\n");
+    }
+}
+
+int daburandom(int max){
+    srand((unsigned int)time(NULL));
     
+    int i, daburand;
+    
+    daburand = rand() % max + 1;
+    
+    for(i = 0;i <= count;i++){
+        if(daburand == tmp[i]){
+            daburand = (rand() + 1) % max + 1;
+            i = -1;
+        }
+        if(i == count){
+            tmp[i] = daburand;
+        }
+    }
+    count++;
+
+    return daburand;
+}
+    
+ 
 int mondai(int x){
     int correct;
     
@@ -54,7 +90,7 @@ int mondai(int x){
             }
         case 4:{
             printf("一番速く行動できるのは？\n");
-            printf("1すいすいフローゼル\n");
+            printf("1,すいすいフローゼル\n");
             printf("2,デオキシススピードフォルム\n");
             printf("3,はやあしサンダース\n");
             printf("4,スカーフガブリアス\n");
@@ -98,7 +134,7 @@ int mondai(int x){
             break;
             }
         case 9:{
-            printf("木デネボラ/火デネボラ/エルドラアナ/ダンタリオン/エンラ/木デネボラ(バッチ/潜在無し)の操作時間は？)\n");
+            printf("木デネボラ/火デネボラ/エルドラアナ/ダンタリオン/エンラ/木デネボラ(バッチ/潜在無し)の操作時間は？\n");
             printf("1,5.50秒\n");
             printf("2,6.00秒\n");
             printf("3,6.50秒\n");
@@ -118,5 +154,5 @@ int mondai(int x){
 
         }
 
-    return correct;
+    torf(correct);
 }
