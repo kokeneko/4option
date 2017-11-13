@@ -10,7 +10,7 @@ void torf(int);
 int daburandom(int);
 
 int tmp[MONDAI];
-int count;
+int countM, countC;
 
 int main(void){
     int i;
@@ -18,6 +18,8 @@ int main(void){
     for(i = 1;i <= SYUTSUDAI;i++){
         mondai(daburandom(SYUTSUDAI));
     }
+
+    printf("正解率:%d%%\n", 100 * countC / SYUTSUDAI);
     
     return 0;
 }
@@ -29,6 +31,7 @@ void torf(int correct){
 
     if(ans == correct){
         printf("正解\n");
+        countC++;
     }
     else{
         printf("不正解\n");
@@ -42,16 +45,16 @@ int daburandom(int max){
     
     daburand = rand() % max + 1;
     
-    for(i = 0;i <= count;i++){
+    for(i = 0;i <= countM;i++){
         if(daburand == tmp[i]){
             daburand = (rand() + 1) % max + 1;
             i = -1;
         }
-        if(i == count){
+        if(i == countM){
             tmp[i] = daburand;
         }
     }
-    count++;
+    countM++;
 
     return daburand;
 }
